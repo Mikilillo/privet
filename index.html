@@ -2,43 +2,64 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi primera página</title>
+  <title>Mi Presentación</title>
   <style>
     body {
-      background-color: #1a1a1a;
+      background: linear-gradient(to right, #1f1c2c, #928dab);
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
       padding: 40px;
     }
 
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 20px;
+    }
+
     h1 {
-      color: #00ffcc;
+      margin-top: 0;
+      font-size: 32px;
+      color: #00ffc3;
     }
 
-    button {
-      padding: 10px 20px;
-      background-color: #00ffcc;
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    a button {
+      background-color: #00ffc3;
       border: none;
-      color: black;
+      color: #000;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 16px;
       font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    button:hover {
-      background-color: #009988;
+    a button:hover {
+      background-color: #00cfa3;
     }
   </style>
 </head>
 <body>
-  <h1>Hola, soy Carlos 😎</h1>
-  <p>Esta es mi primera página web. ¡Estoy aprendiendo frontend!</p>
-  <button onclick="saludar()">Haz clic aquí</button>
+  <img src="https://via.placeholder.com/150" alt="Mi foto">
+  <h1>Carlos Miguel</h1>
+  <p>Estudiante de ingeniería y futuro desarrollador frontend 😎</p>
 
-  <script>
-    function saludar() {
-      alert("¡Bien hecho, ya estás programando!");
-    }
-  </script>
+  <a href="https://instagram.com/tuperfil" target="_blank">
+    <button>Instagram</button>
+  </a>
+
+  <a href="https://wa.me/59171234567" target="_blank">
+    <button>WhatsApp</button>
+  </a>
 </body>
 </html>
