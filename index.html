@@ -20,8 +20,11 @@
     canvas#matrix {
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
+      display: block;
+      background: black;
     }
 
     .container {
@@ -29,13 +32,13 @@
       max-width: 900px;
       margin: 80px auto;
       padding: 40px;
-      background: rgba(0, 0, 0, 0.35); /* 🔥 fondo oscuro opaco */
-      backdrop-filter: blur(5px);       /* ✅ desenfoque del fondo */
-      -webkit-backdrop-filter: blur(5px); /* compatibilidad con Safari/Chrome */
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       border-radius: 15px;
       box-shadow: 0 0 20px #00ff00aa;
       text-align: center;
-      z-index: 10;
+      z-index: 1;
     }
 
     h1 {
@@ -58,13 +61,6 @@
       max-width: 700px;
       margin: 0 auto 30px auto;
       color: #aaffaa;
-    }
-
-    .iconos-computadoras {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 2;
     }
 
     .botones {
@@ -116,86 +112,37 @@
     </div>
   </div>
 
-  <div class="iconos-computadoras" id="iconos"></div>
-
   <script>
-    // Fondo Matrix
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
 
-    const characters = 'アァイィウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const fontSize = 18;
-    const columns = Math.floor(window.innerWidth / fontSize);
-    const drops = Array(columns).fill(1);
+    const letters = 'アァイィウエオカキクケコサシスセソ0123456789ABCDEF'.split('');
+    const fontSize = 14;
+    const columns = Math.floor(width / fontSize);
+    const drops = new Array(columns).fill(1);
 
-    function drawMatrix() {
+    function draw() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, width, height);
 
-      ctx.fillStyle = '#00ff00';
+      ctx.fillStyle = '#0F0';
       ctx.font = fontSize + 'px monospace';
 
       for (let i = 0; i < drops.length; i++) {
-        const text = characters[Math.floor(Math.random() * characters.length)];
+        const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
           drops[i] = 0;
         }
         drops[i]++;
       }
     }
 
-    setInterval(drawMatrix, 35);
-
-    // Iconos de computadora animados
-    const iconosContainer = document.getElementById('iconos');
-    const svgIcon = `
-      <svg width="40" height="30" viewBox="0 0 64 48" fill="#00ff00" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 2px #00ff00)">
-        <rect x="2" y="8" width="60" height="30" rx="4" ry="4" stroke="#00ff00" stroke-width="2" fill="none"/>
-        <rect x="8" y="14" width="48" height="18" fill="#002200"/>
-        <rect x="22" y="40" width="20" height="4" fill="#004400" rx="2" ry="2"/>
-      </svg>
-    `;
-    const numIconos = 20;
-    const iconos = [];
-
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    function createIcono() {
-      const div = document.createElement('div');
-      div.innerHTML = svgIcon;
-      div.style.position = 'absolute';
-      div.style.top = random(0, window.innerHeight) + 'px';
-      div.style.left = random(0, window.innerWidth) + 'px';
-      div.style.opacity = '0.5';
-      div.style.transition = 'transform 1.5s ease-in-out';
-      iconosContainer.appendChild(div);
-      return div;
-    }
-
-    for (let i = 0; i < numIconos; i++) {
-      iconos.push(createIcono());
-    }
-
-    function moverIconos() {
-      iconos.forEach(icono => {
-        const x = random(-30, 30);
-        const y = random(-30, 30);
-        icono.style.transform = `translate(${x}px, ${y}px)`;
-      });
-    }
-
-    setInterval(moverIconos, 1600);
+    setInterval(draw, 33);
   </script>
 </body>
 </html>
